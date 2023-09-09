@@ -1,10 +1,9 @@
-import 'package:movieapp/common/screenutil/screenutil.dart';
+import '../screenutil/screenutil.dart';
 
-extension SizeExtension on num {
-  num get w => ScreenUtil().setWidth(this);
-  num get h => ScreenUtil().setHeight(this);
-  num get sp => ScreenUtil().setSp(
-        this,
-        allowFontScalingSelf: true,
-      );
+extension SizeExtension on double {
+  double get w => ScreenUtil().setWidth(this);
+
+  double get h => ScreenUtil().setHeight(this);
+
+  double get sp => ScreenUtil().setSp(this);
 }

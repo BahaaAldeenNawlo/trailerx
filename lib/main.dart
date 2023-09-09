@@ -1,78 +1,23 @@
+// ignore_for_file: sdk_version_since
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:movieapp/presentation/widgets/movie_app.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
+import 'data/tables/movie_table.dart';
 import 'di/get_it.dart' as getIt;
+import 'presentation/movie_app.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   unawaited(
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]));
+  final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir.path);
+  Hive.registerAdapter(MovieTableAdapter());
   unawaited(getIt.init());
   runApp(const MovieApp());
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//         title: 'Flutter Demo',
-//         theme: ThemeData(
-//           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-//           useMaterial3: true,
-//         ),
-//         home: Scaffold(
-//           body: Center(
-//             child: TextButton(
-//                 onPressed: () async {
-//                   GetTrending getTrending = getIt.getItInstance<GetTrending>();
-//                   final Either<AppError, List> eitherResponse =
-//                       await getTrending(NoParams());
-//                   eitherResponse.fold(
-//                     (l) {
-//                       print('error');
-//                       print(l);
-//                     },
-//                     (r) {
-//                       print('list of movies');
-//                       print(r);
-//                     },
-//                   );
-//                 },
-//                 child: const Text('Click me')),
-//           ),
-//         ));
-//   }
-// }

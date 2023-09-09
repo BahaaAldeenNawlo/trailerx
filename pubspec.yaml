@@ -37,6 +37,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   equatable:
+  wiredash:
+  hive:
+  path_provider:
+  youtube_player_flutter:
+  flare_flutter:
+  flutter_localization:
   dartz:
   get_it:
   google_fonts:
@@ -45,6 +51,11 @@ dependencies:
   cached_network_image:
 
 dev_dependencies:
+  hive_generator:
+  build_runner:
+  test:
+  bloc_test:
+  mockito:
   flutter_test:
     sdk: flutter
   lint:
@@ -72,6 +83,8 @@ flutter:
   assets:
     - assets/svgs/
     - assets/pngs/
+    - assets/languages/
+    - assets/animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

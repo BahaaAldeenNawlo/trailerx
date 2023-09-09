@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/common/constants/size_constants.dart';
-import 'package:movieapp/common/extensions/size_extensions.dart';
-import 'package:movieapp/presentation/themes/app_color.dart';
-import 'package:movieapp/presentation/themes/theme_text.dart';
+
+import '../../../../common/constants/size_constants.dart';
+import '../../../../common/extensions/size_extensions.dart';
+import '../../../../common/extensions/string_extensions.dart';
+import '../../../themes/theme_color.dart';
+import '../../../themes/theme_text.dart';
 
 class TabTitleWidget extends StatelessWidget {
   final String title;
-  final VoidCallback onTap;
+  final Function() onTap;
   final bool isSelected;
 
   const TabTitleWidget({
-    super.key,
+    Key? key,
     required this.title,
     required this.onTap,
     this.isSelected = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +24,18 @@ class TabTitleWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.transparent,
-            border: Border(
-                bottom: BorderSide(
-              color: isSelected ? AppColor.royaBlue : Colors.transparent,
-              width: Sizes.dimen_1.h as double,
-            ))),
+          color: Colors.transparent,
+          border: Border(
+            bottom: BorderSide(
+              color: isSelected ? AppColor.royalBlue : Colors.transparent,
+              width: Sizes.dimen_1.h,
+            ),
+          ),
+        ),
         child: Text(
-          title,
+          title.t(context), //'popular', 'now', 'soon'
           style: isSelected
-              ? Theme.of(context).textTheme.royalblueSubtitle1
+              ? Theme.of(context).textTheme.royalBlueSubtitle1
               : Theme.of(context).textTheme.titleMedium,
         ),
       ),

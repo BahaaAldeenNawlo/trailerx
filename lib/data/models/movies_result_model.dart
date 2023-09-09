@@ -1,28 +1,33 @@
-
 import 'movie_model.dart';
 
 class MoviesResultModel {
-  List<MovieModel>? movies;
+  late final List<MovieModel> movies;
 
-  MoviesResultModel({
-    this.movies,
-  });
+  MoviesResultModel({required this.movies});
 
-  MoviesResultModel.fromJson(Map<String, dynamic> json) {
+  factory MoviesResultModel.fromJson(Map<String, dynamic> json) {
+    var movies = List<MovieModel>.empty(growable: true);
     if (json['results'] != null) {
-      movies = <MovieModel>[];
       json['results'].forEach((v) {
-        movies!.add(MovieModel.fromJson(v));
+        final movieModel = MovieModel.fromJson(v);
+        if (_isValidMovie(movieModel)) {
+          movies.add(movieModel);
+        }
       });
     }
+    return MoviesResultModel(movies: movies);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (movies != null) {
-      data['results'] = movies!.map((v) => v.toJson()).toList();
-    }
-
+    data['results'] = movies.map((v) => v.toJson()).toList();
     return data;
   }
+}
+
+bool _isValidMovie(MovieModel movieModel) {
+  return movieModel.id != -1 &&
+      movieModel.title.isNotEmpty &&
+      movieModel.backdropPath.isNotEmpty &&
+      movieModel.posterPath.isNotEmpty;
 }
